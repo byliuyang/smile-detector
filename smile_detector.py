@@ -17,26 +17,40 @@ def smile_classifier(face_images, expected_labels):
     max_row2  = 0
     max_column2 = 0
 
+    for row1 in range(face_images.shape[1]):
+       for column1 in range(face_images.shape[2]):
+            for row2 in range(face_images.shape[1]):
+                for column2 in range(face_images.shape[2]):
+                    predicted_labels = [1 if face_image[row1][column1] >  face_image[row2][column2] else 0 for face_image in face_images]
+                    current_fPC = fPC(expected_labels, predicted_labels)
+                    if current_fPC > max_fPC:
+                        max_fPC = current_fPC
+                        max_row1  = row1
+                        max_column1 = column1
+                        max_row2  = row2
+                        max_column2 = column2
+
     def predict(face):
-        return 1
+        return face[max_row1][max_column1] > face[max_row2][max_column2]
 
     Classifier = namedtuple('Classifier', ['row1', 'column1', 'row2', 'column2','predict'])
     return Classifier(row1 = max_row1, column1 = max_column1, row2 = max_row2, column2 = max_column2, predict = predict)
 
 def stepwiseRegression (trainingFaces, trainingLabels, testingFaces, testingLabels):
 
-    clf = smile_classifier(trainingFaces, trainingLabels)
+    clf = smile_classifier(trainingFaces[:11], trainingLabels[:11])
 
-    predicted_labels = [clf.predict(face) for face in testingFaces]
-    print("Accuracy: %f" % fPC(predicted_labels, testingLabels))
+    predicted_labels = [clf.predict(face) for face in trainingFaces[:11]]
+    print("Accuracy: %f" % fPC(predicted_labels, trainingLabels[:11]))
 
     im = testingFaces[0,:,:]
     show_feature(im, clf.column1, clf.row1, clf.column2, clf.row2)
 
+
 def show_feature(im, column1, row1, column2, row2):
     fig,ax = plt.subplots(1)
     ax.imshow(im, cmap='gray', extent=[0,24,24,0])
-    
+
     rect = patches.Rectangle((column1, row1),1,1,linewidth=2,edgecolor='r',facecolor='none')
     ax.add_patch(rect)
 
