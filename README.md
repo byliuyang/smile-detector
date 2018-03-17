@@ -1,4 +1,4 @@
-#xSmile
+# xSmile
 
 Automatic smile detector based on step-wise regression.
 
@@ -34,7 +34,9 @@ Accuracy: 1.000000
 
 and show a figure of the selected feature:
 
-![Selected feature](example_feature_1.png)
+<div style="text-align:center">
+	<img style="width:200px" src ="example_feature_1.png"/>
+</div>
 
 ## Author
 
