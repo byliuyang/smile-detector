@@ -23,7 +23,7 @@ Step-wise regression is a greedy algorithm: at each round j, choose the jth feat
 To test out the classifier, run the following command in the terminal:
 
 ```bash
-python3 smile_detector.py
+python3 smile_detector.py 10
 ```
 
 It should output the accuracy of the algorithm:
