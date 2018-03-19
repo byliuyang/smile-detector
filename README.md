@@ -51,7 +51,7 @@ and generate a image of the selected features:
 
 ![Accuracies vs the Size of the Training Set](accuracies.png) 
 
-In the figure, as the number of training set increases, the training accuracy decreases. The testing accuracy, however, first increases then starts decreasing after the size of training set reached 1600. We can see that the two curves are gradually getting close to each other. The decrease of training accuracy and the increase of testing accuracy indicate that the model is getting less and less overfitted as the size of training set increases.
+In the figure, as the size of training set increases, the training accuracy decreases. The testing accuracy, however, first increases then starts decreasing after the size of training set reached 1600. We can see that the two curves are gradually getting close to each other. The decrease of training accuracy and the increase of testing accuracy indicate that the model is getting less and less overfitted as the size of training set
 
 ## Author
 
