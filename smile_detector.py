@@ -96,4 +96,5 @@ if __name__ == "__main__":
         training_sizes = [400, 800, 1200, 1600, 2000]
         for training_size in training_sizes:
             stepwiseRegression(trainingFaces[:training_size + 1], trainingLabels[:training_size + 1], testingFaces, testingLabels)
+            print()
     
