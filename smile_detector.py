@@ -88,13 +88,17 @@ if __name__ == "__main__":
     testingFaces, testingLabels = loadData("test")
     trainingFaces, trainingLabels = loadData("train")
 
-    if len(sys.argv) == 2:
+    if len(sys.argv) > 2:
         print("Usage: python3 smile_detector.py [training set size]")
+        print("Usage: python3 smile_detector.py")
+    if len(sys.argv) == 2:
         training_size = int(sys.argv[1])
+        print("Training the classifier on %d images" % training_size)
         stepwiseRegression(trainingFaces[:training_size + 1], trainingLabels[:training_size + 1], testingFaces, testingLabels)
     else:
         training_sizes = [400, 800, 1200, 1600, 2000]
         for training_size in training_sizes:
+            print("Training the classifier on %d images" % training_size)
             stepwiseRegression(trainingFaces[:training_size + 1], trainingLabels[:training_size + 1], testingFaces, testingLabels)
             print()
     
