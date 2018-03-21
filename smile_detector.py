@@ -19,17 +19,17 @@ def measureAccuracyOfPredictors (predictors, X, y):
     yhat = are_smiling(predictors, X)
     return fPC(y, yhat)
 
-def next_predictor(predictors, im_shape):
-    indices = []
-    for r1 in range(im_shape[0]):
-            for c1 in range(im_shape[1]):
-                for r2 in range(im_shape[0]):
-                    for c2 in range(im_shape[1]):
-                        index = (r1, c1, r2, c2)
-                        if (index[0] == index[2] and index[1] == index[3]) or index in predictors:
-                            continue
-                        indices.append(index)
-    return indices
+# def next_predictor(predictors, im_shape):
+#     indices = []
+#     for r1 in range(im_shape[0]):
+#         for c1 in range(im_shape[1]):
+#             for r2 in range(im_shape[0]):
+#                 for c2 in range(im_shape[1]):
+#                     index = (r1, c1, r2, c2)
+#                     if (index[0] == index[2] and index[1] == index[3]) or index in predictors:
+#                         continue
+#                     indices.append(index)
+#     return indices
 
 def smile_classifier(face_images, expected_labels):
     m = 5
@@ -37,18 +37,22 @@ def smile_classifier(face_images, expected_labels):
 
     max_accuracy = 0
 
+    im_shape = face_images[0].shape
     for i in range(m):
-        possible_predictors = next_predictor(predictors, face_images[0].shape)
-        print(len(possible_predictors))
-
         best_new_predictor = None
-        for new_predictor in possible_predictors:
-            predictors.append(new_predictor)
-            accuracy = measureAccuracyOfPredictors(predictors, face_images, expected_labels)
-            if accuracy >= max_accuracy:
-                max_accuracy = accuracy
-                best_new_predictor = new_predictor
-            predictors.pop()
+        for r1 in range(im_shape[0]):
+            for c1 in range(im_shape[1]):
+                for r2 in range(im_shape[0]):
+                    for c2 in range(im_shape[1]):
+                        new_predictor = (r1, c1, r2, c2)
+                        if (new_predictor[0] == new_predictor[2] and new_predictor[1] == new_predictor[3]) or (new_predictor in predictors):
+                            continue
+                        predictors.append(new_predictor)
+                        accuracy = measureAccuracyOfPredictors(predictors, face_images, expected_labels)
+                        if accuracy >= max_accuracy:
+                            max_accuracy = accuracy
+                            best_new_predictor = new_predictor
+                        predictors.pop()
         predictors.append(best_new_predictor)
 
     print(predictors)
