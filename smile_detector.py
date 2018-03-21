@@ -7,7 +7,7 @@ import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 
 def fPC (y, yhat):
-    return np.count_nonzero(y == yhat) / len(y)
+    return np.mean(y == yhat)
 
 def are_smiling(predictors, images):
     images = np.array(images)
@@ -18,18 +18,6 @@ def are_smiling(predictors, images):
 def measureAccuracyOfPredictors (predictors, X, y):
     yhat = are_smiling(predictors, X)
     return fPC(y, yhat)
-
-# def next_predictor(predictors, im_shape):
-#     indices = []
-#     for r1 in range(im_shape[0]):
-#         for c1 in range(im_shape[1]):
-#             for r2 in range(im_shape[0]):
-#                 for c2 in range(im_shape[1]):
-#                     index = (r1, c1, r2, c2)
-#                     if (index[0] == index[2] and index[1] == index[3]) or index in predictors:
-#                         continue
-#                     indices.append(index)
-#     return indices
 
 def smile_classifier(face_images, expected_labels):
     m = 5
@@ -49,7 +37,7 @@ def smile_classifier(face_images, expected_labels):
                             continue
                         predictors.append(new_predictor)
                         accuracy = measureAccuracyOfPredictors(predictors, face_images, expected_labels)
-                        if accuracy >= max_accuracy:
+                        if accuracy > max_accuracy or (best_new_predictor is None and accuracy == max_accuracy):
                             max_accuracy = accuracy
                             best_new_predictor = new_predictor
                         predictors.pop()
