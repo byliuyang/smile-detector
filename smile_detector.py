@@ -20,17 +20,15 @@ def measureAccuracyOfPredictors (predictors, X, y):
     return fPC(y, yhat)
 
 def next_predictor(predictors, im_shape):
-    indices = np.indices((im_shape[0], im_shape[1], im_shape[0], im_shape[1])).T
-    indices = indices.reshape((im_shape[0] * im_shape[1] * im_shape[0] * im_shape[1], 4))
-    return [tuple(index) for index in indices if not ((index[0] == index[2] and index[1] == index[3]) or tuple(index) in predictors)]
+    indices = []
+    for r1 in range(im_shape[0]):
+            for c1 in range(im_shape[1]):
+                for r2 in range(im_shape[0]):
+                    for c2 in range(im_shape[1]):
+                        indices.append((r1, c1, r2, c2))
+    return [index for index in indices if not ((index[0] == index[2] and index[1] == index[3]) or index in predictors)]
 
 def smile_classifier(face_images, expected_labels):
-    max_fPC = 0
-    max_row1  = 0
-    max_column1 = 0
-    max_row2  = 0
-    max_column2 = 0
-
     m = 5
     predictors = []
 
@@ -38,6 +36,8 @@ def smile_classifier(face_images, expected_labels):
 
     for i in range(m):
         possible_predictors = next_predictor(predictors, face_images[0].shape)
+        print(len(possible_predictors))
+
         best_new_predictor = None
         for new_predictor in possible_predictors:
             predictors.append(new_predictor)
@@ -48,6 +48,7 @@ def smile_classifier(face_images, expected_labels):
             predictors.pop()
         predictors.append(best_new_predictor)
 
+    print(predictors)
     def predict(faces):
         return are_smiling(predictors, faces)
 
@@ -57,8 +58,8 @@ def smile_classifier(face_images, expected_labels):
 def stepwiseRegression (trainingFaces, trainingLabels, testingFaces, testingLabels):
     clf = smile_classifier(trainingFaces, trainingLabels)
 
-    training_size = (len(trainingFaces) - 1)
-    print("Training Size: %d" % (len(trainingFaces) - 1))
+    training_size = len(trainingFaces)
+    print("Training Size: %d" % training_size)
     print("Training Accuracy: %f" % fPC(clf.predict(trainingFaces), trainingLabels))
     print("Testing Accuracy: %f" % fPC(clf.predict(testingFaces), testingLabels))
 
@@ -94,11 +95,11 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         training_size = int(sys.argv[1])
         print("Training the classifier on %d images" % training_size)
-        stepwiseRegression(trainingFaces[:training_size + 1], trainingLabels[:training_size + 1], testingFaces, testingLabels)
+        stepwiseRegression(trainingFaces[:training_size], trainingLabels[:training_size], testingFaces, testingLabels)
     else:
         training_sizes = [400, 800, 1200, 1600, 2000]
         for training_size in training_sizes:
             print("Training the classifier on %d images" % training_size)
-            stepwiseRegression(trainingFaces[:training_size + 1], trainingLabels[:training_size + 1], testingFaces, testingLabels)
+            stepwiseRegression(trainingFaces[:training_size], trainingLabels[:training_size], testingFaces, testingLabels)
             print()
     
