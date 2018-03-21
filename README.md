@@ -35,23 +35,23 @@ Accuracy: 1.000000
 and generate a image of the selected features:
 
 <div align="center">
-	<img width="200" src ="example_feature_10.png"/>
+	<img width="200" src ="example_features_10.png"/>
 </div>
 
 ## Performance
 | Size of Training Set | Training Accuracy | Testing Accuracy | Selected Features |
 |---|:----:|----:|:----:|
-|400 | 0.825436 | 0.735777 | ![Selected features with 400 training examples](example_features_400.png) |
-| 800 | 0.802747 | 0.740700 | ![Selected features with 800 training examples](example_features_800.png) |
-| 1200 | 0.801832 | 0.760394 | ![Selected features with 1200 training examples](example_features_1200.png) |
-| 1600 | 0.788882 | 0.763676 | ![Selected features with 1600 training examples](example_features_1600.png) |
-| 2000 | 0.784000 | 0.752735 | ![Selected features with 2000 training examples](example_features_2000.png) |
+|400 | 0.827500 | 0.711160 | ![Selected features with 400 training examples](example_features_400.png) |
+| 800 | 0.802500 | 0.740700 | ![Selected features with 800 training examples](example_features_800.png) |
+| 1200 | 0.798333 | 0.749453 | ![Selected features with 1200 training examples](example_features_1200.png) |
+| 1600 | 0.788750 | 0.763676 | ![Selected features with 1600 training examples](example_features_1600.png) |
+| 2000 | 0.782500| 0.764223 | ![Selected features with 2000 training examples](example_features_2000.png) |
 
 ### Accuracies vs the number of images in the training set
 
 ![Accuracies vs the Size of the Training Set](accuracies.png) 
 
-In the figure, as the size of training set increases, the training accuracy decreases. The testing accuracy, however, first increases then starts decreasing after the size of training set reached 1600. We can see that the two curves are gradually getting close to each other. The decrease of training accuracy and the increase of testing accuracy indicate that the model is getting less and less overfitted as the size of training set
+In the figure, as the size of training set increases, the training accuracy decreases. The testing accuracy, however, increases. We can see that the two curves are gradually getting close to each other. The decrease of training accuracy and the increase of testing accuracy indicate that the model is getting less and less overfitted as the size of training set increases.
 
 ## Author
 
