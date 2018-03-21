@@ -80,10 +80,10 @@ def visualize_features(im, predictors):
     ax.imshow(im, cmap='gray', extent=[0,24,24,0])
 
     for predictor in predictors:
-        rect = patches.Rectangle((predictor[0], predictor[1]),1,1,linewidth=2,edgecolor='r',facecolor='none')
+        rect = patches.Rectangle((predictor[1], predictor[0]),1,1,linewidth=2,edgecolor='r',facecolor='none')
         ax.add_patch(rect)
 
-        rect = patches.Rectangle((predictor[2], predictor[3]),1,1,linewidth=2,edgecolor='b',facecolor='none')
+        rect = patches.Rectangle((predictor[3], predictor[2]),1,1,linewidth=2,edgecolor='b',facecolor='none')
         ax.add_patch(rect)
 
 def loadData (which):
