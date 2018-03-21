@@ -25,8 +25,11 @@ def next_predictor(predictors, im_shape):
             for c1 in range(im_shape[1]):
                 for r2 in range(im_shape[0]):
                     for c2 in range(im_shape[1]):
-                        indices.append((r1, c1, r2, c2))
-    return [index for index in indices if not ((index[0] == index[2] and index[1] == index[3]) or index in predictors)]
+                        index = (r1, c1, r2, c2)
+                        if (index[0] == index[2] and index[1] == index[3]) or index in predictors:
+                            continue
+                        indices.append(index)
+    return indices
 
 def smile_classifier(face_images, expected_labels):
     m = 5
