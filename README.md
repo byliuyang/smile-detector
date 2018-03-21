@@ -9,7 +9,7 @@ The algorithm trains a very simple smile classifier that analyzes a grayscale im
 	<img width="160" src ="formula.png"/>
 </div>
 
-Step-wise regression is a greedy algorithm: at each round j, choose the jth feature (r1, c1, r2, c2) such that – when it is added to the set of j − 1 features that have already been selected – the accuracy (fPC) of the overall classifier is maximized. 
+Step-wise regression is a greedy algorithm: at each round j, choose the jth feature (r1, c1, r2, c2) such that – when it is added to the set of j − 1 features that have already been selected – the accuracy (fPC) of the overall classifier is maximized.
 
 ## Getting Started
 
