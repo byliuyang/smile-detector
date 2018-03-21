@@ -42,8 +42,7 @@ def smile_classifier(face_images, expected_labels):
                             best_new_predictor = new_predictor
                         predictors.pop()
         predictors.append(best_new_predictor)
-
-    print(predictors)
+        
     def predict(faces):
         return are_smiling(predictors, faces)
 
